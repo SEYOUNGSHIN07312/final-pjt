@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1>ArticleList</h1>
+        <h2>ArticleList</h2>
+        <hr>
         <ArticleListItem
         v-for="item in items" :key="item.id" :item="item"
         />
@@ -32,9 +33,7 @@ export default {
             })
             .then((res)=>{
                 console.log(res)
-                console.log('TT')
                 this.items = res.data
-                
             })
             .catch((err)=>{
                 console.log(err)

@@ -1,23 +1,11 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-container>
-        <!-- 검색창 -->
-        <v-text-field v-model="searchText" placeholder="Search" @keyup.enter="search" hide-details>
-          <template v-slot:append>
-            <v-btn icon @click="search">
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn>
-          </template>
-        </v-text-field>
-      </v-container>
-    </v-app-bar>
+  <v-container>
     <h1>ArticleView</h1>
     <ArticleList/>
-    <v-main>
+    <!-- <v-main>
       <router-view/>
-    </v-main>
-  </v-app>
+    </v-main> -->
+  </v-container>
 </template>
 
 <script>

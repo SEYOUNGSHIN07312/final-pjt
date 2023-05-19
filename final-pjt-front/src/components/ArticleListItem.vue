@@ -2,6 +2,7 @@
   <div>
     <p>{{item.title}}</p>
     <p>작성자 : {{item.user}}</p>
+    <router-link :to="{name: 'ArticleDetailView', params: {articleId: item.id}}">[Detail]</router-link>
     <hr>
   </div>
 </template>
@@ -25,7 +26,7 @@ export default {
           method : 'get',
           url : `${SERVER_URL}/movies/articles/${this.item.id}`,
           headers : {
-            Authorization : `Bearer ${this.$store.state}`
+            Authorization : `Bearer ${this.$store.state.token}`
           }
         })
         .then((res)=>{
@@ -34,7 +35,6 @@ export default {
               this.item.user = user.username
             }
           }
-          
         })
       }
     },

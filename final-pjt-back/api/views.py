@@ -22,7 +22,7 @@ def get_top_rated(request):
         movies = requests.get(request_url).json()
 
         for movie in movies['results']:
-            if movie.get('release_date', ''):
+            if movie.get('release_date', '') and movie.get('title', '') and movie.get('overview', '') and movie.get('poster_path', ''):
                 fields = {
                     'id': movie['id'],
                     'title': movie['title'],
