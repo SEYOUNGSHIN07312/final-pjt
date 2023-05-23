@@ -90,7 +90,7 @@
     </v-dialog>
 
     <v-dialog v-model="showSearchResultDialog" max-width="800">
-      <v-carousel hide-delimiters show-arrows v-model="currentCarouselIndex" cycle>
+      <v-carousel v-if="searchResults && searchResults.length > 0" hide-delimiters show-arrows v-model="currentCarouselIndex" cycle>
         <v-carousel-item
           v-for="(group, index) in groupedSearchResults"
           :key="index"
@@ -114,6 +114,9 @@
             </v-col>
           </v-row>
         </v-carousel-item>
+      </v-carousel>
+      <v-carousel v-else>
+        <h1>검색 결과가 없습니다.</h1>
       </v-carousel>
     </v-dialog>
   </v-app>

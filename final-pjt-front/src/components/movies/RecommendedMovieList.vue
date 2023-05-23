@@ -5,8 +5,6 @@
       hide-delimiters
       show-arrows
       v-model="currentCarouselIndex"
-      class="custom-carousel"
-      style="display:flex;"
     >
       <v-carousel-item
         v-for="(group, index) in groupedRecommendedMovies"
@@ -18,7 +16,6 @@
             v-for="(movie, movieIndex) in groupWithRepeatedItems(group, 9)"
             :key="movieIndex"
             :movie="movie"
-            class="carousel-item"
           />
         </div>
       </v-carousel-item>

@@ -153,6 +153,7 @@ export default new Vuex.Store({
         method: 'get',
         url: `${process.env.VUE_APP_SERVER_URL}/movies/`
       }).then((res)=>{
+        // 장르 겹치는 영화
         for (const request of res.data) {
           const genres = request.genres.map(obj => obj.id)
           for (const genre of user.like_genres) {
@@ -163,37 +164,43 @@ export default new Vuex.Store({
           }
         }
         console.log('getRecommendedMovies then')
+        recommended_movies.sort((a, b)=> b.vote_average - a.vote_average)
         console.log(recommended_movies)
-
         // 연도 +++ 조건
 
-        context.commit('SET_RECOMMENDED_MOVIES', recommended_movies)
+        let cnt80 = 0
+        let cnt90 = 0
+        let cnt00 = 0
+        let cnt10 = 0
+        let cnt20 = 0
+        const result = []
 
+        for (const movie of recommended_movies) {
+          const year = movie.release_date.slice(0, 3)
+          console.log(year)
+          if (year === '198' && cnt80 < 5) {
+            result.push(movie)
+            cnt80 += 1
+          } else if (year === '199' && cnt90 < 5) {
+            result.push(movie)
+            cnt90 += 1
+          } else if (year === '200' && cnt00 < 5) {
+            result.push(movie)
+            cnt00 += 1
+          } else if (year === '201' && cnt10 < 5) {
+            result.push(movie)
+            cnt10 += 1
+          } else if (year === '202' && cnt20 < 5) {
+            result.push(movie)
+            cnt20 += 1
+          }
+        }
+        console.log(result)
+        context.commit('SET_RECOMMENDED_MOVIES', result)
       }).catch((err)=>{
         console.log('getRecommendedMovies catch')
         console.log(err)
       })
-
-      // for (let i = 1; i <= 2; i++) {
-      //   const request = axios({
-      //     method: 'get',
-      //     url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&page=${i}&sort_by=popularity.desc&api_key=${process.env.VUE_APP_API_KEY}`
-      //   });
-    
-      //   requests.push(request);
-      // }
-    
-      // axios.all(requests)
-      //   .then(axios.spread((...responses) => {
-      //     responses.forEach((response) => {
-      //       recommended_movies.push(...response.data.results);
-      //     });
-    
-      //     context.commit('SET_RECOMMENDED_MOVIES', recommended_movies);
-      //   }))
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
     }
   },
   modules: {
